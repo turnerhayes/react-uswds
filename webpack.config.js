@@ -19,7 +19,9 @@ module.exports = {
 
 	output: {
 		filename: 'react-uswds.js',
-		path: path.resolve(__dirname, 'dist')
+		path: path.resolve(__dirname, 'dist'),
+		libraryTarget: 'umd',
+		library: 'ReactUSWDS',
 	},
 
 	plugins: [
@@ -75,6 +77,22 @@ module.exports = {
 	devtool: "inline-source-map",
 
 	devServer: {
+	},
+
+	externals: {
+		// Don't bundle react or react-dom      
+		react: {
+			commonjs: "react",
+			commonjs2: "react",
+			amd: "React",
+			root: "React",
+		},
+		"react-dom": {
+			commonjs: "react-dom",
+			commonjs2: "react-dom",
+			amd: "ReactDOM",
+			root: "ReactDOM",
+		},
 	},
 
 	resolve: {
