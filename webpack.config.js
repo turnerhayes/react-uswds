@@ -15,10 +15,10 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
 	mode: 'development',
-	entry: './src/index.tsx',
+	entry: './src/index.ts',
 
 	output: {
-		filename: '[name].[chunkhash].js',
+		filename: 'react-uswds.js',
 		path: path.resolve(__dirname, 'dist')
 	},
 

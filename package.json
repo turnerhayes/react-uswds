@@ -2,7 +2,7 @@
   "name": "react-uswds",
   "version": "1.0.0",
   "description": "My webpack project",
-  "main": "index.js",
+  "main": "dist/react-uswds.js",
   "scripts": {
     "build": "webpack",
     "prebuild": "rimraf dist",

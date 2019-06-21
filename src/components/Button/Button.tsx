@@ -1,6 +1,8 @@
 import classnames from "classnames";
 import * as React from "react";
 
+import "uswds/src/stylesheets/elements/_buttons.scss";
+
 export interface IUSWDSComponentsButtonProps {
   type?: "button"|"submit"|"reset";
   hover?: boolean;
