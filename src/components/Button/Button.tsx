@@ -9,7 +9,7 @@ export interface IUSWDSComponentsButtonProps {
   active?: boolean;
   focus?: boolean;
   onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-  children: string|JSX.Element|JSX.Element[];
+  children?: JSX.Element|string|Array<JSX.Element|string>|undefined;
 }
 
 export const Button = React.forwardRef(

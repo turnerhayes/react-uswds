@@ -1,29 +1,53 @@
 import classnames from "classnames";
 import * as React from "react";
+import { Button } from "../Button";
 
 import "uswds/src/stylesheets/components/_search.scss";
-import "uswds/src/stylesheets/elements/_buttons.scss";
 
 export interface IUSWDSComponentsSearchProps {
-  onSearch: () => any;
+  onSearch: (searchString: string) => any;
   size?: "big"|"small";
+  label?: string|undefined;
 }
+
+let componentID: number = 1;
 
 export const Search = React.forwardRef(
   (
     {
       onSearch,
       size,
+      label,
     }: IUSWDSComponentsSearchProps,
     ref: React.Ref<HTMLFormElement>,
   ) => {
+    const [searchString, setSearchString] = React.useState("");
+
+    const [compID, setComponentID] = React.useState<string|undefined>();
+
+    React.useEffect(
+      () => {
+        if (compID === undefined) {
+          setComponentID(`USWDSSearch__${componentID++}`);
+        }
+      },
+      [setComponentID],
+    );
+
     const handleSubmit = React.useCallback(
       (event: React.FormEvent<HTMLFormElement>): void => {
         event.preventDefault();
 
-        onSearch();
+        onSearch(searchString);
       },
       [],
+    );
+
+    const handleSearchInputChange = React.useCallback(
+      (event: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchString(event.target.value);
+      },
+      [setSearchString],
     );
 
     return (
@@ -41,25 +65,35 @@ export const Search = React.forwardRef(
         <div role="search">
           <label
             className="usa-sr-only"
+            htmlFor={compID}
           >
-            Search
-            <input
-              className="usa-input"
-              type="search"
-            />
+            {label}
           </label>
-          <button
-            className="usa-button"
+          <input
+            className="usa-input"
+            type="search"
+            onChange={handleSearchInputChange}
+            value={searchString}
+            id={compID}
+          />
+          <Button
             type="submit"
           >
             <span
-              className="usa-search__submit-text"
+              className={classnames({
+                "usa-search__submit-text": size !== "small",
+                "usa-sr-only": size === "small",
+              })}
             >
               Search
             </span>
-          </button>
+          </Button>
         </div>
       </form>
     );
   },
 );
+
+Search.defaultProps = {
+  label: "Search",
+};
